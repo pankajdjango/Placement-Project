@@ -24,3 +24,41 @@ class CompanyForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
             visible.field.widget.attrs['maxlength'] = 50
+
+class InterviewForm(forms.ModelForm):
+    class Meta:
+        model = Interviews
+        fields = ["student","company","interview_date"]
+
+    def __init__(self, *args, **kwargs):
+        super(InterviewForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['maxlength'] = 50
+    interview_date = forms.CharField(widget=forms.TextInput(attrs={'type':'date'}))
+
+
+class InterviewEditForm(forms.ModelForm):
+    class Meta:
+        model = Interviews
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(InterviewEditForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['maxlength'] = 50
+    interview_date = forms.CharField(widget=forms.TextInput(attrs={'type':'date'}))
+
+class PlacementForm(forms.ModelForm):
+    class Meta:
+        model = Placements
+        fields = ["interview","placement_date","offered_salary"]
+
+
+    def __init__(self, *args, **kwargs):
+        super(PlacementForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['maxlength'] = 50
+    placement_date = forms.CharField(widget=forms.TextInput(attrs={'type':'date'}))

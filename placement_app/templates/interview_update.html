@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+   <div class="col-5 border border-secondary  p-4">
+      <h1 class="text-center text-light p-4 bg-info">Interview Schedule</h1>
+      <form method="post" action="">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit" class="btn btn-success form-control">Schedule</button>
+      </form>
+   </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script>
+   $(document).ready(function() {
+     console.log("document ready");
+     var response = "{{ res|escapejs }}"; 
+     console.log(response);
+     if (response) {
+       alert(response);
+     }
+   });
+</script>
+{% endblock js %}

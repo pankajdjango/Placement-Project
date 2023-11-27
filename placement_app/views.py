@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from .forms import StudentForm,CompanyForm
-from .models import Students,Companies
+from django.shortcuts import render, redirect,get_object_or_404
+from .forms import StudentForm,CompanyForm,InterviewForm,InterviewEditForm,PlacementForm
+from .models import Students,Companies,Interviews,Placements
 
 # Create your views here.
 def index(reqeust):
@@ -41,3 +41,60 @@ def register_company(request):
         "companies":Companies.objects.all()
     })
     return render(request, 'company_registration.html',context)
+
+
+def interviews_page(request):
+    context = dict()
+    if request.method == 'POST':
+        form = InterviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            msg = "Interview Scheduled Successfully."
+        else:
+            msg = "Something went wrong!"
+        context.update({"res":msg})
+
+    context.update({
+        'form': InterviewForm(),
+        "intervew_data":Interviews.objects.all()
+    })
+    return render(request, 'interviews_page.html',context)
+
+
+def interview_update(request, id):
+    context = dict()
+    obj = get_object_or_404(Interviews, interview_id=id)
+    if request.method == 'POST':
+        form = InterviewEditForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            msg = "Interview Updated Successfully."
+            return redirect("/interviews")
+        else:
+            msg = "Something went wrong!"
+        context.update({"res": msg})
+    else:
+        form = InterviewEditForm(instance=obj)
+    context.update({
+        'form': form,
+        "interview_data": obj,
+    })
+    return render(request, "interview_update.html", context)
+
+
+def placements(request):
+    context = dict()
+    if request.method == 'POST':
+        form = PlacementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            msg = "Interview Scheduled Successfully."
+        else:
+            msg = "Something went wrong!"
+        context.update({"res":msg})
+
+    context.update({
+        'form': PlacementForm(),
+        "placements_data":Placements.objects.all()
+    })
+    return render(request, 'placements.html',context)
