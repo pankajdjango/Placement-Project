@@ -9,7 +9,7 @@ CREATE SEQUENCE student_roll_number_seq
 CREATE OR REPLACE FUNCTION generate_student_roll_number()
     RETURNS TRIGGER AS $$
 BEGIN
-    NEW.roll_number := 'B2323R' || TO_CHAR(nextval('student_roll_number_seq'), 'FM0000');
+    NEW.roll_number := 'B2023R' || TO_CHAR(nextval('student_roll_number_seq'), 'FM0000');
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
