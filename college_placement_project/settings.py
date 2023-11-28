@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'college_placement_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'collage_placement',
+        'NAME':'college_placement',
         'USER':'psql',
         'PASSWORD':'psql',
         'HOST':'localhost',
